@@ -1,7 +1,11 @@
 /* General */
+
+
 * { box-sizing: border-box; }
 
 :root {
+  color-scheme: dark !important; 
+
   --purple-light-1: #FBFAFB;
   --purple-light-2: #EEEAF2;
   --purple-medium-1: #AA83C8;
@@ -17,12 +21,13 @@
   --darkBlue: #8EA2EA;
   --red: #F09D9D;
 
+
   --font-family-titles: 'Dosis', sans-serif;
   --font-family-text: 'Red Hat Display', sans-serif;
   --font-weight-title1: 800;
   --font-weight-title2: 700;
   --font-weight-text1: 400;
-  --font-weight-text2: 500;
+  --font-weight-text2: 500; 
 }
 
 html {
@@ -89,24 +94,48 @@ button {
 
 
 /* Shared */
-.header-container, .trendingPreview-header, .categoriesPreview-container {
+.header-container, .trendingPreview-header, .categoriesPreview-container, .liked-header {
   padding: 0 24px;
 }
 
-.trendingPreview-container, .categoriesPreview-container, footer {
+.trendingPreview-container, .categoriesPreview-container, footer, .liked-container {
   margin-top: 48px;
 }
 
-.trendingPreview-header, .categoriesPreview-title {
+.trendingPreview-header, .categoriesPreview-title, .liked-header {
   margin-bottom: 24px;
 }
 
 .movie-container {
   cursor: pointer;
+  position: relative;
 }
 
 .movie-img {
   border-radius: 8px;
+}
+
+.movie-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-btn::before {
+  content: '🤍';
+}
+
+.movie-btn--liked {
+  background-color: var(--purple-light-2);
+}
+
+.movie-btn--liked::before {
+content: '💜';
 }
 
 .categoriesPreview-list, .categories-list {
@@ -117,15 +146,55 @@ button {
   flex-wrap: wrap;
 }
 
+.movie-container--loading {
+  background: var(--purple-light-2);
+  border-radius: 8px;
+  height: 225px;
+  min-height: 225px;
+  max-height: 225px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  margin-bottom: 15px;
+  animation: loading-skeleton infinite 1.5s;
+}
+.movie-container--loading:nth-child(2) {
+  animation-delay: .2s;
+}
+.movie-container--loading:nth-child(3) {
+  animation-delay: .4s;
+}
+.category-container--loading {
+  background: var(--purple-light-2);
+  border-radius: 8px;
+  height: 25px;
+  min-height: 25px;
+  max-height: 25px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  margin-bottom: 15px;
+  animation: loading-skeleton infinite 1.5s;
+}
+.category-container--loading:nth-child(2) {
+  animation-delay: .2s;
+}
 
+
+#lang {
+  position: absolute;
+  top: 40px;
+  right: 24px;
+  height: 30.4px;
+}
 /* Header */
 .header-container {
   padding-top: 40px;
 }
 
 .header-container--long {
-  background-image: url('https://pics.filmaffinity.com/Deadpool-777527803-large.jpg');
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg);
+  /* background-image: url('https://pics.filmaffinity.com/Deadpool-777527803-large.jpg'); */
+  /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg); */
   background-size: cover !important;
   height: 480px;
   position: fixed;
@@ -158,6 +227,7 @@ button {
   justify-content: center;
   width: 100%;
   flex-wrap: nowrap;
+  border: 2px white;
 }
 
 .header-searchForm input {
@@ -175,7 +245,8 @@ button {
 
 
 /* Trending */
-.trendingPreview-header {
+.trendingPreview-header,
+.liked-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -187,7 +258,8 @@ button {
   width: 72px;
 }
 
-.trendingPreview-movieList {
+.trendingPreview-movieList,
+.liked-movieList {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -196,12 +268,14 @@ button {
   padding-bottom: 16px;
 }
 
-.trendingPreview-movieList .movie-container {
+.trendingPreview-movieList .movie-container, 
+.liked-movieList .movie-container{
   display: inline-block;
   margin-right: 8px;
 }
 
-.trendingPreview-movieList .movie-container .movie-img {
+.trendingPreview-movieList .movie-container .movie-img,
+.liked-movieList .movie-container .movie-img {
   height: 225px;
   min-height: 225px;
   max-height: 225px;
@@ -279,9 +353,9 @@ button {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   padding: 32px 24px;
-  margin-top: 403px;
+  margin-top: 467px;
   z-index: 1;
-  position: absolute;
+  position: relative;
   background-color: var(--purple-light-1);
 }
 
@@ -331,6 +405,14 @@ button {
   margin-right: 8px;
 }
 
+.relatedMovies-scrollContainer .movie-container--loading {
+  width: 125px;
+  min-width: 125px;
+  max-width: 125px;
+  height: 187.5px;
+  min-height: 187.5px;
+  max-height: 187.5px;
+}
 .relatedMovies-scrollContainer .movie-img {
   width: 125px;
   min-width: 125px;
@@ -350,10 +432,33 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+margin-top: 103px;
 }
 
 
 /* Navigation */
 .inactive {
   display: none;
+}
+
+
+
+
+@media (min-width: 600px) {
+  .genericList-container .movie-container {
+    display: inline-block;
+    width: 150px;
+    padding: 12px;
+  }
+}
+
+/* Animations */
+@keyframes loading-skeleton {
+  0%, 100% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 0%;
+  }
 }

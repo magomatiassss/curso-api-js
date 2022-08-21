@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "morsejs": "^0.1.4",
+    "permutation": "^0.0.1",
+    "string-permutation": "^0.1.0"
+  }
+}
